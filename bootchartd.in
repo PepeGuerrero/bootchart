@@ -63,7 +63,7 @@ start()
 	# Otherwise, manually launched to profile something
 	else
 		# bail out, if already running
-		pidof bootchart-collector && exit 0
+		pgrep -x bootchart-collector && exit 0
 #		echo "bootchartd started manually" >> kmsg
 		$COLLECTOR_BIN -r $SAMPLE_HZ &
 
@@ -88,7 +88,7 @@ wait_boot()
 	done
 
 	while true; do
-		if [ -n "$EXIT_PROC" -a -n "$( pidof $EXIT_PROC )" ]; then
+		if [ -n "$EXIT_PROC" -a -n "$( pgrep -x $EXIT_PROC )" ]; then
 			# give an unambiguous settle afterwards - so we get
 			# more post-login data for slow systems
 			$USLEEP 20000000
